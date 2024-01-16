@@ -24,7 +24,14 @@ namespace _4932Assignment1
         private List<Line> linesFromDest = new List<Line>();
         private int reference = 0;
         private Line selectedLine = null;
+        private ResizePoint resizePoint = ResizePoint.None;
         private Point previousMousePosition;
+        private enum ResizePoint
+        {
+            None,
+            Start,
+            End
+        }
         public Source()
         {
             InitializeComponent();
@@ -76,13 +83,26 @@ namespace _4932Assignment1
         {
             if (isImageLoaded)
             {
-                // First, check for line selection
+                // Check for line selection for moving or resizing
                 foreach (var line in linesToDest) // Use linesToSource in Destination form
                 {
-                    if (line.IsNear(e.Location))
+                    if (line.IsNearStart(e.Location))
+                    {
+                        selectedLine = line;
+                        resizePoint = ResizePoint.Start;
+                        return; // Stop checking after the first match
+                    }
+                    else if (line.IsNearEnd(e.Location))
+                    {
+                        selectedLine = line;
+                        resizePoint = ResizePoint.End;
+                        return; // Stop checking after the first match
+                    }
+                    else if (line.IsNear(e.Location))
                     {
                         selectedLine = line;
                         previousMousePosition = e.Location;
+                        resizePoint = ResizePoint.None; // Indicates that the whole line is being moved
                         return; // Stop checking after the first match
                     }
                 }
@@ -97,21 +117,36 @@ namespace _4932Assignment1
             }
         }
 
+
         /* Draws the length of the line when the mouse moves */
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (selectedLine != null && e.Button == MouseButtons.Left)
             {
-                int deltaX = e.X - previousMousePosition.X;
-                int deltaY = e.Y - previousMousePosition.Y;
+                if (resizePoint != ResizePoint.None) // Resizing logic
+                {
+                    if (resizePoint == ResizePoint.Start)
+                    {
+                        selectedLine.ResizeStartPoint(e.Location);
+                    }
+                    else if (resizePoint == ResizePoint.End)
+                    {
+                        selectedLine.ResizeEndPoint(e.Location);
+                    }
+                }
+                else // Moving logic
+                {
+                    int deltaX = e.X - previousMousePosition.X;
+                    int deltaY = e.Y - previousMousePosition.Y;
+                    selectedLine.Move(deltaX, deltaY);
+                    previousMousePosition = e.Location;
+                }
 
-                selectedLine.Move(deltaX, deltaY);
-                previousMousePosition = e.Location;
                 pictureBox1.Invalidate();
                 return;
             }
 
-            if (currentLine != null)
+            if (currentLine != null) // Drawing a new line
             {
                 currentLine.EndPoint = e.Location;
                 pictureBox1.Invalidate();
@@ -158,7 +193,8 @@ namespace _4932Assignment1
                     currentLine = null;
                 }
                 selectedLine = null;
-            }
+                resizePoint = ResizePoint.None;
+            } 
         }
 
         /* Adds duplicated lines to be redrawn */
