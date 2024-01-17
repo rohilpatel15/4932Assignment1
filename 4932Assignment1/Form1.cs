@@ -55,10 +55,16 @@ namespace _4932Assignment1
         }
 
         /* This method duplicate lines created from one form to another*/
-        public void DuplicateLine(Line line)
+        public void DuplicateLine(Line line, int form)
         {
-            destination.ReplicateLine(line);
-            source.ReplicateLine(line);
+            Line line_2 = new Line(line.StartPoint, line.EndPoint);
+            if (form == 1)
+            {
+                destination.ReplicateLine(line_2);
+            } else if (form == 2)
+            {
+                source.ReplicateLine(line_2);
+            }
         }
     }
 }

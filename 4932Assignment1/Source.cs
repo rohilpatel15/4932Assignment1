@@ -26,6 +26,7 @@ namespace _4932Assignment1
         private Line selectedLine = null;
         private ResizePoint resizePoint = ResizePoint.None;
         private Point previousMousePosition;
+        private int formid = 1;
         private enum ResizePoint
         {
             None,
@@ -133,9 +134,8 @@ namespace _4932Assignment1
                 // If no line is selected, start drawing a new line
                 if (e.Button == MouseButtons.Left)
                 {
-                    currentLine = new Line(e.Location, e.Location, reference);
+                    currentLine = new Line(e.Location, e.Location);
                     linesToDest.Add(currentLine);
-                    reference++;
                 }
             }
         }
@@ -212,7 +212,7 @@ namespace _4932Assignment1
             {
                 if (currentLine != null)
                 {
-                    ((Form1)this.MdiParent).DuplicateLine(currentLine);
+                    ((Form1)this.MdiParent).DuplicateLine(currentLine, formid);
                     currentLine = null;
                 }
                 else if (selectedLine != null)

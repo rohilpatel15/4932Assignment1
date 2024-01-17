@@ -23,6 +23,17 @@ namespace _4932Assignment1
         private List<Line> linesFromSource = new List<Line>();
         private List<Line> linesToSource = new List<Line>();
         private int reference = 0;
+        private Line selectedLine = null;
+        private ResizePoint resizePoint = ResizePoint.None;
+        private Point previousMousePosition;
+        private int formid = 2;
+
+        private enum ResizePoint
+        {
+            None,
+            Start,
+            End
+        }
         public Destination()
         {
             InitializeComponent();
@@ -73,10 +84,13 @@ namespace _4932Assignment1
                 {
                     foreach (Line line in linesFromSource)
                     {
-                        e.Graphics.DrawLine(pen, line.StartPoint, line.EndPoint);
-                        e.Graphics.DrawCircle(pen, line.StartPoint.X, line.StartPoint.Y, 5);
-                        e.Graphics.DrawCircle(pen, line.EndPoint.X, line.EndPoint.Y, 5);
-                        e.Graphics.DrawCircle(pen, (line.StartPoint.X + line.EndPoint.X) / 2, (line.StartPoint.Y + line.EndPoint.Y) / 2, 5);
+                        if (line.IsMovable)
+                        {
+                            e.Graphics.DrawLine(pen, line.StartPoint, line.EndPoint);
+                            e.Graphics.DrawCircle(pen, line.StartPoint.X, line.StartPoint.Y, 5);
+                            e.Graphics.DrawCircle(pen, line.EndPoint.X, line.EndPoint.Y, 5);
+                            e.Graphics.DrawCircle(pen, (line.StartPoint.X + line.EndPoint.X) / 2, (line.StartPoint.Y + line.EndPoint.Y) / 2, 5);
+                        }
                     }
                 }
                 /* Draws new lines */
@@ -100,9 +114,8 @@ namespace _4932Assignment1
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    currentLine = new Line(e.Location, e.Location, reference);
+                    currentLine = new Line(e.Location, e.Location);
                     linesToSource.Add(currentLine);
-                    reference++;
                 }
             }
         }
@@ -112,7 +125,7 @@ namespace _4932Assignment1
         {
             if (e.Button == MouseButtons.Left && currentLine != null)
             {
-                ((Form1)this.MdiParent).DuplicateLine(currentLine);
+                ((Form1)this.MdiParent).DuplicateLine(currentLine, formid);
                 currentLine = null;
             }
         }
