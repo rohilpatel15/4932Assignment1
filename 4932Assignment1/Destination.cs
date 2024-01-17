@@ -112,6 +112,53 @@ namespace _4932Assignment1
         {
             if (isImageLoaded)
             {
+                // Check for line selection for moving or resizing
+                foreach (var line in linesToSource) // Use linesToSource in Destination form
+                {
+                    if (line.IsNearStart(e.Location))
+                    {
+                        selectedLine = line;
+                        resizePoint = ResizePoint.Start;
+                        return; // Stop checking after the first match
+                    }
+                    else if (line.IsNearEnd(e.Location))
+                    {
+                        selectedLine = line;
+                        resizePoint = ResizePoint.End;
+                        return; // Stop checking after the first match
+                    }
+                    else if (line.IsNear(e.Location))
+                    {
+                        selectedLine = line;
+                        previousMousePosition = e.Location;
+                        resizePoint = ResizePoint.None; // Indicates that the whole line is being moved
+                        return; // Stop checking after the first match
+                    }
+                }
+
+                foreach (var line in linesFromSource) // Use linesToSource in Destination form
+                {
+                    if (line.IsNearStart(e.Location))
+                    {
+                        selectedLine = line;
+                        resizePoint = ResizePoint.Start;
+                        return; // Stop checking after the first match
+                    }
+                    else if (line.IsNearEnd(e.Location))
+                    {
+                        selectedLine = line;
+                        resizePoint = ResizePoint.End;
+                        return; // Stop checking after the first match
+                    }
+                    else if (line.IsNear(e.Location))
+                    {
+                        selectedLine = line;
+                        previousMousePosition = e.Location;
+                        resizePoint = ResizePoint.None; // Indicates that the whole line is being moved
+                        return; // Stop checking after the first match
+                    }
+                }
+
                 if (e.Button == MouseButtons.Left)
                 {
                     currentLine = new Line(e.Location, e.Location);
@@ -128,11 +175,41 @@ namespace _4932Assignment1
                 ((Form1)this.MdiParent).DuplicateLine(currentLine, formid);
                 currentLine = null;
             }
+            else if (selectedLine != null)
+            {
+                selectedLine = null;
+                resizePoint = ResizePoint.None;
+            }
         }
 
         /* Draws the length of the line when the mouse moves */
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (selectedLine != null && e.Button == MouseButtons.Left)
+            {
+                if (resizePoint != ResizePoint.None) // Resizing logic
+                {
+                    if (resizePoint == ResizePoint.Start)
+                    {
+                        selectedLine.ResizeStartPoint(e.Location);
+                    }
+                    else if (resizePoint == ResizePoint.End)
+                    {
+                        selectedLine.ResizeEndPoint(e.Location);
+                    }
+                }
+                else // Moving logic
+                {
+                    int deltaX = e.X - previousMousePosition.X;
+                    int deltaY = e.Y - previousMousePosition.Y;
+                    selectedLine.Move(deltaX, deltaY);
+                    previousMousePosition = e.Location;
+                }
+
+                pictureBox1.Invalidate();
+                return;
+            }
+
             if (currentLine != null)
             {
                 currentLine.EndPoint = e.Location;
