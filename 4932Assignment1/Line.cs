@@ -12,6 +12,7 @@ namespace _4932Assignment1
     {
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
+        public bool IsMovable { get; set; } = true;
         public int id;
         public Line(Point startpoint, Point endpoint, int id)
         {

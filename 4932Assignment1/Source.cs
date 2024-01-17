@@ -107,6 +107,29 @@ namespace _4932Assignment1
                     }
                 }
 
+                foreach (var line in linesFromDest) // Use linesToSource in Destination form
+                {
+                    if (line.IsNearStart(e.Location))
+                    {
+                        selectedLine = line;
+                        resizePoint = ResizePoint.Start;
+                        return; // Stop checking after the first match
+                    }
+                    else if (line.IsNearEnd(e.Location))
+                    {
+                        selectedLine = line;
+                        resizePoint = ResizePoint.End;
+                        return; // Stop checking after the first match
+                    }
+                    else if (line.IsNear(e.Location))
+                    {
+                        selectedLine = line;
+                        previousMousePosition = e.Location;
+                        resizePoint = ResizePoint.None; // Indicates that the whole line is being moved
+                        return; // Stop checking after the first match
+                    }
+                }
+
                 // If no line is selected, start drawing a new line
                 if (e.Button == MouseButtons.Left)
                 {
@@ -192,8 +215,11 @@ namespace _4932Assignment1
                     ((Form1)this.MdiParent).DuplicateLine(currentLine);
                     currentLine = null;
                 }
-                selectedLine = null;
-                resizePoint = ResizePoint.None;
+                else if (selectedLine != null)
+                {
+                    selectedLine = null;
+                    resizePoint = ResizePoint.None;
+                }
             } 
         }
 
