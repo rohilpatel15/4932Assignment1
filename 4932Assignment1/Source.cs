@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static _4932Assignment1.Form1;
+using static System.Windows.Forms.LinkLabel;
 
 namespace _4932Assignment1
 {
@@ -231,6 +232,12 @@ namespace _4932Assignment1
                 linesFromDest.Add(line);
                 pictureBox1.Invalidate();
             }
+        }
+
+        /* Gets the sources lines */
+        public List<Line> GetLines()
+        {
+            return linesToDest;
         }
     }
 }

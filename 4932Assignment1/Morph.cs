@@ -12,9 +12,12 @@ namespace _4932Assignment1
 {
     public partial class Morph : Form
     {
+        private Bitmap formMapMorph;
         public Morph()
         {
             InitializeComponent();
+            formMapMorph = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void savToolStripMenuItem_Click(object sender, EventArgs e)
@@ -35,6 +38,11 @@ namespace _4932Assignment1
         private void Morph_Load(object sender, EventArgs e)
         {
 
+        }
+        public void SetImage(Bitmap image, Bitmap loaded)
+        {
+            formMapMorph = image;
+            Refresh();
         }
     }
 }

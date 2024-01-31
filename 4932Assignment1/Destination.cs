@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static _4932Assignment1.Form1;
+using static System.Windows.Forms.LinkLabel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+using System.Numerics;
+using System.Diagnostics;
 
 namespace _4932Assignment1
 {
@@ -225,6 +229,79 @@ namespace _4932Assignment1
                 linesFromSource.Add(line);
                 pictureBox1.Invalidate();
             }
+        }
+
+        public void Morph(List<Line> sourceLines)
+        {
+            Bitmap transition = new Bitmap(formMapDest.Width, formMapDest.Height);
+            List<Vector2> sourcePoints = new List<Vector2>();
+            List<Color> colors = new List<Color>();
+
+            for (int y = 0; y < formMapDest.Height; ++y)
+            {
+                for (int x = 0; x < formMapDest.Width; ++x)
+                {
+                    double weight_sum = 0;
+                    Vector2 delta_sum = new Vector2(0, 0);
+                    for (int k = 0; k < linesFromSource.Count; k++)
+                    {
+                        Line line = linesFromSource[k];
+
+                        Vector2 PQ = new Vector2(line.EndPoint.X - line.StartPoint.X, line.EndPoint.Y - line.StartPoint.Y);
+                        Vector2 n = new Vector2(-PQ.Y, PQ.X);
+                        Vector2 XP = new Vector2(line.StartPoint.X - x, line.StartPoint.Y - y);
+                        Vector2 PX = new Vector2(x - line.StartPoint.X, y - line.StartPoint.Y);
+
+                        float d = Vector2.Dot(XP, n) / n.Length();
+
+                        float f = Vector2.Dot(PX, PQ) / PQ.Length();
+
+                        float fl = f / PQ.Length();
+
+                        Line sourceLine = sourceLines[k];
+
+                        Vector2 PPrime = new Vector2(sourceLine.StartPoint.X, sourceLine.StartPoint.Y);
+                        Vector2 NPrime = new Vector2(-1 * (sourceLine.EndPoint.Y - sourceLine.StartPoint.Y), sourceLine.EndPoint.X - sourceLine.StartPoint.X);
+                        Vector2 PQPrime = new Vector2(sourceLine.EndPoint.X - sourceLine.StartPoint.X, sourceLine.EndPoint.Y - sourceLine.StartPoint.Y);
+
+                        Vector2 XPrime = PPrime + Vector2.Multiply(fl, PQPrime) - Vector2.Multiply(d, Vector2.Divide(NPrime, NPrime.Length()));
+
+                        Vector2 X = new Vector2(x, y);
+                        Vector2 delta1 = XPrime - X;
+                        double weight = Math.Pow(1 / (d + 0.01), 2);
+                        weight_sum += weight;
+                        delta_sum += Vector2.Multiply((float)weight, delta1);
+
+                    }
+                    Vector2 delta_avg = Vector2.Divide(delta_sum, (float)weight_sum);
+
+                    Vector2 XPrime_avg = new Vector2(x, y) + delta_avg;
+                    XPrime_avg = validatePixel(XPrime_avg, formMapDest.Width, formMapDest.Height);
+                    transition.SetPixel(x, y, formMapDest.GetPixel((int)XPrime_avg.X, (int)XPrime_avg.Y));
+                }
+            }
+            ((Form1)MdiParent).UpdateTransition(transition, transition);
+        }
+
+        private Vector2 validatePixel(Vector2 coord, int width, int height)
+        {
+            if (coord.X < 0)
+            {
+                coord.X = 0;
+            }
+            else if (coord.X >= width)
+            {
+                coord.X = width - 1;
+            }
+            if (coord.Y < 0)
+            {
+                coord.Y = 0;
+            }
+            else if (coord.Y >= height)
+            {
+                coord.Y = height - 1;
+            }
+            return coord;
         }
 
     }
