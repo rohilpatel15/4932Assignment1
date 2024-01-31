@@ -289,7 +289,6 @@ namespace _4932Assignment1
 
                     }
                     Vector2 delta_avg = Vector2.Divide(delta_sum, (float)weight_sum);
-
                     Vector2 XPrime_avg = new Vector2(x, y) + delta_avg;
                     XPrime_avg = validatePixel(XPrime_avg, formMapDest.Width, formMapDest.Height);
                     transition.SetPixel(x, y, formMapDest.GetPixel((int)XPrime_avg.X, (int)XPrime_avg.Y));
