@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.LinkLabel;
 
 namespace _4932Assignment1
 {
@@ -18,6 +19,17 @@ namespace _4932Assignment1
             InitializeComponent();
             formMapMorph = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            if (formMapMorph != null)
+            {
+                e.Graphics.DrawImage(formMapMorph, 0, 0, ClientSize.Width, ClientSize.Height);
+            }
+
         }
 
         private void savToolStripMenuItem_Click(object sender, EventArgs e)

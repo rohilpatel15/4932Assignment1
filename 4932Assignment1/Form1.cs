@@ -67,11 +67,13 @@ namespace _4932Assignment1
             }
         }
 
+        /* Morph button */
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             destination.Morph(source.GetLines());
         }
 
+        /* Updates morph form picture */
         public void UpdateTransition(Bitmap image, Bitmap loaded)
         {
             morph.SetImage(image, loaded);

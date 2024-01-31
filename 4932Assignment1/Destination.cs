@@ -231,6 +231,7 @@ namespace _4932Assignment1
             }
         }
 
+        /* Morphs based on lines drawn from source */
         public void Morph(List<Line> sourceLines)
         {
             Bitmap transition = new Bitmap(formMapDest.Width, formMapDest.Height);
@@ -247,6 +248,8 @@ namespace _4932Assignment1
                     {
                         Line line = linesFromSource[k];
 
+                        Vector2 P = new Vector2(line.StartPoint.X, line.StartPoint.Y);
+                        Vector2 Q = new Vector2(line.EndPoint.X, line.EndPoint.Y);
                         Vector2 PQ = new Vector2(line.EndPoint.X - line.StartPoint.X, line.EndPoint.Y - line.StartPoint.Y);
                         Vector2 n = new Vector2(-PQ.Y, PQ.X);
                         Vector2 XP = new Vector2(line.StartPoint.X - x, line.StartPoint.Y - y);
@@ -268,7 +271,19 @@ namespace _4932Assignment1
 
                         Vector2 X = new Vector2(x, y);
                         Vector2 delta1 = XPrime - X;
-                        double weight = Math.Pow(1 / (d + 0.01), 2);
+                        double weight = 0;
+                        if (fl >= 0 && fl <= 1) weight = Math.Pow(1 / (d + 0.01), 2);
+                        else if (fl < 0)
+                        {
+                            float dxp = Vector2.Distance(X, P);
+                            weight = Math.Pow(1 / (dxp + 0.01), 2);
+                        }
+                        else if (fl > 1)
+                        {
+                            float dxq = Vector2.Distance(X, Q);
+                            weight = Math.Pow(1 / (dxq + 0.01), 2);
+                        }
+
                         weight_sum += weight;
                         delta_sum += Vector2.Multiply((float)weight, delta1);
 
@@ -283,6 +298,7 @@ namespace _4932Assignment1
             ((Form1)MdiParent).UpdateTransition(transition, transition);
         }
 
+        /* Resets values of pixel to 0 if negative */
         private Vector2 validatePixel(Vector2 coord, int width, int height)
         {
             if (coord.X < 0)
