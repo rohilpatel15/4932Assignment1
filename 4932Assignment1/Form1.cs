@@ -29,10 +29,10 @@ namespace _4932Assignment1
             backwardframes = new List<Bitmap>();
             frames = new List<Bitmap>();
 
-            // Start the program with 5 frames and 2 threads default
+            // Start the program with 5 frames and 1 thread default
             num_frames = 5;
-            num_threads = 2;
-            t2.Checked = true;
+            num_threads = 1;
+            t1.Checked = true;
             frames5.Checked = true;
 
             // Values to make space between forms
@@ -43,7 +43,7 @@ namespace _4932Assignment1
             source = new FormBuilder(FormType.SOURCE, 0);
             source.MdiParent = this;
             source.Show();
-            source.Location = new Point(0, 0);
+            source.Location = new Point(100, 0);
 
             destination = new FormBuilder(FormType.DESTINATION, 1);
             destination.MdiParent = this;
@@ -142,7 +142,7 @@ namespace _4932Assignment1
         }
 
         // Creates the controller and shows how long it takes to morph
-        private void beginToolStripMenuItem_Click(object sender, EventArgs e)
+        private void beginToolStripMenuItem_Click1(object sender, EventArgs e)
         {
             Stopwatch sw = new Stopwatch();
             List<Bitmap> dummy = new List<Bitmap>();
@@ -262,9 +262,6 @@ namespace _4932Assignment1
         {
         }
 
-        public void UpdateTransition(Bitmap image, Bitmap loaded)
-        {
-        }
         private void menu_strip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
         }
