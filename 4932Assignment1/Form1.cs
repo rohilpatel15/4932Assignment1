@@ -262,6 +262,9 @@ namespace _4932Assignment1
         {
         }
 
+        public void UpdateTransition(Bitmap image, Bitmap loaded)
+        {
+        }
         private void menu_strip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
         }
