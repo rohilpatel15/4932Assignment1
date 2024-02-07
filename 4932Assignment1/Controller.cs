@@ -11,6 +11,7 @@ namespace _4932Assignment1
         private int count = 0;
         private int count2 = 0;
         private List<Bitmap> frames;
+
         public Controller(List<Bitmap> frames, FormBuilder transition)
         {
             InitializeComponent();

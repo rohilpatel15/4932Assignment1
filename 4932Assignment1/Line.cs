@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace _4932Assignment1
 {
-    /* Line class creates a start and end point */
+    // Line class creates a start and end point
     public class Line
     {
         private int startX;
@@ -43,6 +43,7 @@ namespace _4932Assignment1
             e.Graphics.DrawCircle(circlePen, endX, endY, 3.5F);
         }
 
+        // Handles all line movements
         public int LineAction(MouseEventArgs e)
         {
             double lineCenterX = (startX + endX) / 2;

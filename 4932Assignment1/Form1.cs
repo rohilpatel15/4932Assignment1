@@ -22,6 +22,7 @@ namespace _4932Assignment1
         private int num_threads;
         private double time;
         private double time2;
+
         public Form1()
         {
             InitializeComponent();
