@@ -59,7 +59,7 @@ namespace _4932Assignment1
         }
         private void Controller_Load(object sender, EventArgs e)
         {
-            label1.Text = ((Form1)MdiParent).GetThreads() + " threads: " + ((Form1)MdiParent).GetThreadedTime() + " seconds\n1 threads: " + ((Form1)MdiParent).Get1ThreadedTime() + " seconds";
+            label1.Text = "Ready to morph";
         }
         private void Previous_Click(object sender, EventArgs e)
         {
