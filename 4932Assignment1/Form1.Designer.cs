@@ -1,4 +1,7 @@
-﻿namespace _4932Assignment1
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace _4932Assignment1
 {
     partial class Form1
     {
@@ -28,91 +31,147 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip1.SuspendLayout();
-            this.SuspendLayout();
+            menu_strip = new MenuStrip();
+            menu_file = new ToolStripMenuItem();
+            morphingToolStripMenuItem = new ToolStripMenuItem();
+            beginToolStripMenuItem = new ToolStripMenuItem();
+            framesToolStripMenuItem = new ToolStripMenuItem();
+            frames5 = new ToolStripMenuItem();
+            frames10 = new ToolStripMenuItem();
+            threadsToolStripMenuItem = new ToolStripMenuItem();
+            t1 = new ToolStripMenuItem();
+            t2 = new ToolStripMenuItem();
+            t3 = new ToolStripMenuItem();
+            t4 = new ToolStripMenuItem();
+            t8 = new ToolStripMenuItem();
+            menu_strip.SuspendLayout();
+            SuspendLayout();
             // 
-            // toolStrip1
+            // menu_strip
             // 
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton1,
-            this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1067, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
+            menu_strip.Items.AddRange(new ToolStripItem[] { menu_file, morphingToolStripMenuItem, framesToolStripMenuItem, threadsToolStripMenuItem });
+            menu_strip.Location = new Point(0, 0);
+            menu_strip.Name = "menu_strip";
+            menu_strip.Size = new Size(1079, 24);
+            menu_strip.TabIndex = 1;
+            menu_strip.Text = "menuStrip1";
+            menu_strip.ItemClicked += menu_strip_ItemClicked;
             // 
-            // toolStripDropDownButton1
+            // menu_file
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.saveToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(38, 22);
-            this.toolStripDropDownButton1.Text = "File";
-            this.toolStripDropDownButton1.Click += new System.EventHandler(this.toolStripDropDownButton1_Click);
+            menu_file.Name = "menu_file";
+            menu_file.Size = new Size(37, 20);
+            menu_file.Text = "File";
             // 
-            // openToolStripMenuItem
+            // morphingToolStripMenuItem
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            morphingToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { beginToolStripMenuItem });
+            morphingToolStripMenuItem.Name = "morphingToolStripMenuItem";
+            morphingToolStripMenuItem.Size = new Size(72, 20);
+            morphingToolStripMenuItem.Text = "Morphing";
             // 
-            // saveToolStripMenuItem
+            // beginToolStripMenuItem
             // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            beginToolStripMenuItem.Name = "beginToolStripMenuItem";
+            beginToolStripMenuItem.Size = new Size(104, 22);
+            beginToolStripMenuItem.Text = "Begin";
+            beginToolStripMenuItem.Click += beginToolStripMenuItem_Click;
             // 
-            // toolStripButton1
+            // framesToolStripMenuItem
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(47, 22);
-            this.toolStripButton1.Text = "Morph";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            framesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { frames5, frames10 });
+            framesToolStripMenuItem.Name = "framesToolStripMenuItem";
+            framesToolStripMenuItem.Size = new Size(57, 20);
+            framesToolStripMenuItem.Text = "Frames";
             // 
-            // Form1
+            // frames5
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(1067, 536);
-            this.Controls.Add(this.toolStrip1);
-            this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            frames5.Name = "frames5";
+            frames5.Size = new Size(86, 22);
+            frames5.Text = "5";
+            frames5.Click += frames5_Click;
+            // 
+            // frames10
+            // 
+            frames10.Name = "frames10";
+            frames10.Size = new Size(86, 22);
+            frames10.Text = "10";
+            frames10.Click += frames10_Click;
+            // 
+            // threadsToolStripMenuItem
+            // 
+            threadsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { t1, t2, t3, t4, t8 });
+            threadsToolStripMenuItem.Name = "threadsToolStripMenuItem";
+            threadsToolStripMenuItem.Size = new Size(60, 20);
+            threadsToolStripMenuItem.Text = "Threads";
+            // 
+            // t1
+            // 
+            t1.Name = "t1";
+            t1.Size = new Size(180, 22);
+            t1.Text = "1";
+            t1.Click += t1_Click;
+            // 
+            // t2
+            // 
+            t2.Name = "t2";
+            t2.Size = new Size(180, 22);
+            t2.Text = "2";
+            t2.Click += t2_Click;
+            // 
+            // t3
+            // 
+            t3.Name = "t3";
+            t3.Size = new Size(180, 22);
+            t3.Text = "3";
+            t3.Click += t3_Click;
+            // 
+            // t4
+            // 
+            t4.Name = "t4";
+            t4.Size = new Size(180, 22);
+            t4.Text = "4";
+            t4.Click += t4_Click;
+            // 
+            // t8
+            // 
+            t8.Name = "t8";
+            t8.Size = new Size(180, 22);
+            t8.Text = "8";
+            t8.Click += t8_Click;
+            // 
+            // Parent
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1079, 634);
+            Controls.Add(menu_strip);
+            IsMdiContainer = true;
+            MainMenuStrip = menu_strip;
+            Name = "Parent";
+            Text = "Image Morpher";
+            Load += Main_Load;
+            menu_strip.ResumeLayout(false);
+            menu_strip.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private MenuStrip menu_strip;
+        private ToolStripMenuItem menu_file;
+        private ToolStripMenuItem morphingToolStripMenuItem;
+        private ToolStripMenuItem beginToolStripMenuItem;
+        private ToolStripMenuItem framesToolStripMenuItem;
+        private ToolStripMenuItem frames5;
+        private ToolStripMenuItem frames10;
+        private ToolStripMenuItem threadsToolStripMenuItem;
+        private ToolStripMenuItem t1;
+        private ToolStripMenuItem t2;
+        private ToolStripMenuItem t3;
+        private ToolStripMenuItem t4;
+        private ToolStripMenuItem t8;
     }
 }
 

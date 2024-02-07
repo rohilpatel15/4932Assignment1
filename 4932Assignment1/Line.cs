@@ -1,70 +1,142 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace _4932Assignment1
 {
     /* Line class creates a start and end point */
     public class Line
     {
-        public Point StartPoint { get; set; }
-        public Point EndPoint { get; set; }
-        public bool IsMovable { get; set; } = true;
-        public int id;
-        public Line(Point startpoint, Point endpoint)
+        private int startX;
+        private int startY;
+        private int endX;
+        private int endY;
+        private int id;
+        private static int counter = 0;
+        private bool moving;
+        private bool resizingStart;
+        private bool resizingEnd;
+        private Pen pen;
+        private Pen circlePen;
+
+        public Line(int startX, int startY, int endX = 0, int endY = 0)
         {
-            StartPoint = startpoint;
-            EndPoint = endpoint;
+            this.startX = startX;
+            this.startY = startY;
+            this.endX = endX;
+            this.endY = endY;
+            id = counter / 2;
+            counter++;
+            pen = new Pen(Color.Red, 4F);
+            circlePen = new Pen(Color.Red, 4F);
         }
 
-        public bool IsNear(Point p, int threshold = 5)
+        public void Draw(PaintEventArgs e)
         {
-            float dx = EndPoint.X - StartPoint.X;
-            float dy = EndPoint.Y - StartPoint.Y;
-            float lengthSquared = dx * dx + dy * dy;
+            Point p1 = new Point(startX, startY);
+            Point p2 = new Point(endX, endY);
 
-            float t = ((p.X - StartPoint.X) * dx + (p.Y - StartPoint.Y) * dy) / lengthSquared;
-            t = Math.Max(0, Math.Min(1, t));
+            e.Graphics.DrawLine(pen, p1, p2);
 
-            float closestPointX = StartPoint.X + t * dx;
-            float closestPointY = StartPoint.Y + t * dy;
-
-            float distanceSquared = (p.X - closestPointX) * (p.X - closestPointX) +
-                                    (p.Y - closestPointY) * (p.Y - closestPointY);
-
-            return distanceSquared <= threshold * threshold;
+            e.Graphics.DrawCircle(circlePen, startX, startY, 3.5F);
+            e.Graphics.DrawCircle(circlePen, (startX + endX) / 2, (startY + endY) / 2, 3.5F);
+            e.Graphics.DrawCircle(circlePen, endX, endY, 3.5F);
         }
 
-        // Move the line
-        public void Move(int deltaX, int deltaY)
+        public int LineAction(MouseEventArgs e)
         {
-            StartPoint = new Point(StartPoint.X + deltaX, StartPoint.Y + deltaY);
-            EndPoint = new Point(EndPoint.X + deltaX, EndPoint.Y + deltaY);
+            double lineCenterX = (startX + endX) / 2;
+            double lineCenterY = (startY + endY) / 2;
+
+            // Target the middle of the line to move
+            if (Math.Abs(e.Location.X - lineCenterX) < 5 && Math.Abs(e.Location.Y - lineCenterY) < 5)
+            {
+                moving = true;
+                resizingStart = false;
+                resizingEnd = false;
+
+                return Action.Move;
+            }
+            // Target the start of the line to resize
+            else if (Math.Abs(e.Location.X - startX) < 6 && Math.Abs(e.Location.Y - startY) < 6)
+            {
+                moving = false;
+                resizingStart = true;
+                resizingEnd = false;
+
+                return Action.ResizeStart;
+            }
+            // Target the end of the line to resize
+            else if (Math.Abs(e.Location.X - endX) < 6 && Math.Abs(e.Location.Y - endY) < 6)
+            {
+                moving = false;
+                resizingStart = false;
+                resizingEnd = true;
+
+                return Action.ResizeEnd;
+            }
+
+            // If the user is not interracting with an existing line, create a new one
+            else return Action.CreateLine;
         }
 
-        // Check if a point is near the start point of the line
-        public bool IsNearStart(Point p, int threshold = 5)
+        public void Resize(MouseEventArgs e)
         {
-            return (Math.Pow(p.X - StartPoint.X, 2) + Math.Pow(p.Y - StartPoint.Y, 2)) <= threshold * threshold;
+            if (moving)
+            {
+                int offsetX = e.Location.X - (StartX + EndX) / 2;
+                int offsetY = e.Location.Y - (StartY + EndY) / 2;
+
+                StartX += offsetX;
+                StartY += offsetY;
+                EndX += offsetX;
+                EndY += offsetY;
+            }
+            else if (resizingStart)
+            {
+                StartX = e.Location.X;
+                StartY = e.Location.Y;
+            }
+            else
+            {
+                EndX = e.Location.X;
+                EndY = e.Location.Y;
+            }
         }
 
-        // Check if a point is near the end point of the line
-        public bool IsNearEnd(Point p, int threshold = 5)
+        public void UpdateEndPoints(int endX, int endY)
         {
-            return (Math.Pow(p.X - EndPoint.X, 2) + Math.Pow(p.Y - EndPoint.Y, 2)) <= threshold * threshold;
+            this.endX = endX;
+            this.endY = endY;
         }
 
-        public void ResizeStartPoint(Point newStartPoint)
+        public int getId()
         {
-            StartPoint = newStartPoint;
+            return id;
         }
 
-        public void ResizeEndPoint(Point newEndPoint)
+        public int StartX
         {
-            EndPoint = newEndPoint;
+            get { return startX; }
+            set { startX = value; }
+        }
+
+        public int StartY
+        {
+            get { return startY; }
+            set { startY = value; }
+        }
+
+        public int EndX
+        {
+            get { return endX; }
+            set { endX = value; }
+        }
+
+        public int EndY
+        {
+            get { return endY; }
+            set { endY = value; }
         }
     }
 }
