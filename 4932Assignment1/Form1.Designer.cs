@@ -58,7 +58,6 @@ namespace _4932Assignment1
             this.menu_strip.Size = new System.Drawing.Size(925, 24);
             this.menu_strip.TabIndex = 1;
             this.menu_strip.Text = "menuStrip1";
-            this.menu_strip.ItemClicked += menu_strip_ItemClicked;
             // 
             // morphingToolStripMenuItem
             // 
@@ -72,7 +71,7 @@ namespace _4932Assignment1
             // 
             this.beginToolStripMenuItem.Name = "beginToolStripMenuItem";
             this.beginToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.beginToolStripMenuItem.Text = "Begin";
+            this.beginToolStripMenuItem.Text = "Start";
             this.beginToolStripMenuItem.Click += new System.EventHandler(this.beginToolStripMenuItem_Click1);
             // 
             // framesToolStripMenuItem
@@ -87,16 +86,14 @@ namespace _4932Assignment1
             // frames5
             // 
             this.frames5.Name = "frames5";
-            this.frames5.Size = new System.Drawing.Size(180, 22);
+            this.frames5.Size = new System.Drawing.Size(86, 22);
             this.frames5.Text = "5";
-            this.frames5.Click += frames5_Click;
             // 
             // frames10
             // 
             this.frames10.Name = "frames10";
-            this.frames10.Size = new System.Drawing.Size(180, 22);
+            this.frames10.Size = new System.Drawing.Size(86, 22);
             this.frames10.Text = "10";
-            this.frames10.Click += frames10_Click;
             // 
             // threadsToolStripMenuItem
             // 
@@ -113,37 +110,32 @@ namespace _4932Assignment1
             // t1
             // 
             this.t1.Name = "t1";
-            this.t1.Size = new System.Drawing.Size(180, 22);
+            this.t1.Size = new System.Drawing.Size(80, 22);
             this.t1.Text = "1";
-            this.t1.Click += t1_Click;
             // 
             // t2
             // 
             this.t2.Name = "t2";
-            this.t2.Size = new System.Drawing.Size(180, 22);
+            this.t2.Size = new System.Drawing.Size(80, 22);
             this.t2.Text = "2";
-            this.t2.Click += t2_Click;
             // 
             // t3
             // 
             this.t3.Name = "t3";
-            this.t3.Size = new System.Drawing.Size(180, 22);
+            this.t3.Size = new System.Drawing.Size(80, 22);
             this.t3.Text = "3";
-            this.t3.Click += t3_Click;
             // 
             // t4
             // 
             this.t4.Name = "t4";
-            this.t4.Size = new System.Drawing.Size(180, 22);
+            this.t4.Size = new System.Drawing.Size(80, 22);
             this.t4.Text = "4";
-            this.t4.Click += t4_Click;
             // 
             // t8
             // 
             this.t8.Name = "t8";
-            this.t8.Size = new System.Drawing.Size(180, 22);
+            this.t8.Size = new System.Drawing.Size(80, 22);
             this.t8.Text = "8";
-            this.t8.Click += t8_Click;
             // 
             // Form1
             // 
@@ -155,7 +147,6 @@ namespace _4932Assignment1
             this.MainMenuStrip = this.menu_strip;
             this.Name = "Form1";
             this.Text = "4932 Assignment 1";
-            this.Load += Main_Load;
             this.menu_strip.ResumeLayout(false);
             this.menu_strip.PerformLayout();
             this.ResumeLayout(false);

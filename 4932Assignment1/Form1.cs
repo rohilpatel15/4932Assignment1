@@ -30,11 +30,11 @@ namespace _4932Assignment1
             backwardframes = new List<Bitmap>();
             frames = new List<Bitmap>();
 
-            // Start the program with 5 frames and 1 thread default
-            num_frames = 5;
-            num_threads = 1;
-            t1.Checked = true;
-            frames5.Checked = true;
+            // Start the program with 5 frames and 4 thread default
+            num_frames = 10;
+            num_threads = 4;
+            t4.Checked = true;
+            frames10.Checked = true;
 
             // Values to make space between forms
             int offsetX = 20;
@@ -167,7 +167,7 @@ namespace _4932Assignment1
             controller = new Controller(frames, transition);
             controller.MdiParent = this;
             controller.Show();
-            controller.Location = new Point(0, Math.Max(source.Bottom, Math.Max(destination.Bottom, transition.Bottom)) + 10);
+            controller.Location = new Point(source.Right + 7, Math.Max(source.Bottom, Math.Max(destination.Bottom, transition.Bottom)) + 10);
         }
 
         private void frames5_Click(object sender, EventArgs e)

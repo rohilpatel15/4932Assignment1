@@ -7,17 +7,18 @@ namespace _4932Assignment1
 {
     public partial class Controller : Form
     {
-        private FormBuilder transition;
+        private FormBuilder final;
         private int count = 0;
         private int count2 = 0;
         private List<Bitmap> frames;
 
-        public Controller(List<Bitmap> frames, FormBuilder transition)
+        public Controller(List<Bitmap> frames, FormBuilder final)
         {
             InitializeComponent();
-            this.transition = transition;
+            this.final = final;
             this.frames = frames;
             Location = new Point(ClientSize.Width - this.Width, ClientSize.Height - this.Height);
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -25,7 +26,7 @@ namespace _4932Assignment1
             if (count2 != frames.Count - 1)
             {
                 count2++;
-                transition.SetImage(frames[count2]);
+                final.SetImage(frames[count2]);
             }
         }
 
@@ -39,7 +40,7 @@ namespace _4932Assignment1
             else
             {
                 count++;
-                transition.SetImage(((Form1)MdiParent).GetFrames()[count]);
+                final.SetImage(((Form1)MdiParent).GetFrames()[count]);
             }
         }
 
@@ -65,7 +66,7 @@ namespace _4932Assignment1
             if (count2 != 0)
             {
                 count2--;
-                transition.SetImage(frames[count2]);
+                final.SetImage(frames[count2]);
             }
             else return;
         }
